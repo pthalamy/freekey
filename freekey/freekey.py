@@ -157,12 +157,12 @@ def write_default_conf(fn):
     open(fn, 'w').write(r"""#ScanCode Command
 # Note: If you're running Cinnamon, substitute 'gnome-screensaver-command' with 'cinnamon-screensaver-command'
 # volume up/down
-122 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true && bash -c '/usr/bin/pactl -- set-sink-volume `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` -10%'
-123 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true && bash -c '/usr/bin/pactl -- set-sink-volume `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` +10%'
+122 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true" && bash -c '/usr/bin/pactl -- set-sink-volume `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` -10%'
+123 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true" && bash -c '/usr/bin/pactl -- set-sink-volume `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` +10%'
 # mute
-121 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true && bash -c 'for i in $(pacmd list-sinks | grep -Po "(?<=\* index: )[0-9]+"); do /usr/bin/pactl -- set-sink-mute $i $(pacmd list-sinks | grep -Pqzo "(?s)\* index.*?muted: no.*?(properties)" && echo 1 || echo 0); done'
+121 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true" && bash -c 'for i in $(pacmd list-sinks | grep -Po "(?<=\* index: )[0-9]+"); do /usr/bin/pactl -- set-sink-mute $i $(pacmd list-sinks | grep -Pqzo "(?s)\* index.*?muted: no.*?(properties)" && echo 1 || echo 0); done'
 # play/pause
-171 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true && bash -c '/usr/bin/pactl -- suspend-sink `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` `pacmd list-sinks | grep -P -o "state: RUNNING" | wc -l`'
+172 gdbus call -e -d com.canonical.Unity -o /com/canonical/Unity/Session -m com.canonical.Unity.Session.IsLocked | grep -ioP "true" && bash -c '/usr/bin/pactl -- suspend-sink `pacmd list-sinks | grep -P -o "(?<=\* index: )[0-9]+"` `pacmd list-sinks | grep -P -o "state: RUNNING" | wc -l`'
 #
 # Add own key mappings
 # [ctrl_][shift_][alt_][altgr_]keycode command
